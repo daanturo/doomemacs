@@ -7,7 +7,8 @@
 (defun set-docsets! (modes &rest docsets)
   "Registers a list of DOCSETS for MODES.
 
-MODES can be one major mode, or a list thereof.
+MODES can be one major mode, or a list thereof. Inferior
+mode(s) (REPLs) corresponding to MODES are also registered.
 
 DOCSETS can be strings, each representing a dash docset, or a vector with the
 structure [DOCSET FORM]. If FORM evaluates to nil, the DOCSET is omitted. If it
@@ -27,7 +28,10 @@ Example:
 Used by `+lookup/in-docsets' and `+lookup/documentation'."
   (declare (indent defun))
   (let ((action (if (keywordp (car docsets)) (pop docsets))))
-    (dolist (mode (doom-enlist modes))
+    (dolist (mode (mapcan (lambda (mode)
+                            (list mode
+                                  (intern (format "inferior-%s" mode))))
+                          (doom-enlist modes)))
       (let ((hook (intern (format "%s-hook" mode)))
             (fn (intern (format "+lookup|init--%s-%s" (or action "set") mode))))
         (if (null docsets)
