@@ -30,6 +30,7 @@
               (IS-LINUX
                (cond ((executable-find "maim")  "maim -s %s")
                      ((executable-find "scrot") "scrot -s %s")
+                     ((executable-find "spectacle") "spectacle -br -o %s")
                      ((executable-find "gnome-screenshot") "gnome-screenshot -a -f %s"))))
 
         org-download-heading-lvl nil
