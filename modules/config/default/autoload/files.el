@@ -65,3 +65,26 @@ If prefix ARG is non-nil, prompt for a known project to open in dired."
          (if arg
              (list (completing-read "Open dired in project: " projectile-known-projects))
            (dired-read-dir-and-switches ""))))
+
+;;;###autoload
+(defun +default/locate-file (&optional initial-dir)
+  (interactive (list default-directory))
+  (let ((default-directory initial-dir))
+    (call-interactively
+     (cond
+      ((executable-find locate-command)
+       (cond
+        ((featurep! :completion ivy)
+         #'counsel-locate)
+        ((featurep! :completion helm)
+         #'helm-locate)
+        (t
+         #'locate)))
+      ((executable-find "fzf")
+       (cond
+        ((featurep! :completion ivy)
+         #'counsel-fzf)
+        ((featurep! :completion helm)
+         #'helm-fzf)
+        (t
+         #'fzf)))))))
