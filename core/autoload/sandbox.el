@@ -63,7 +63,8 @@
           (setq doom-debug-p t
                 doom-emacs-dir ,doom-emacs-dir
                 doom-cache-dir ,(expand-file-name "cache/" doom-sandbox-dir)
-                doom-etc-dir   ,(expand-file-name "etc/" doom-sandbox-dir))
+                doom-etc-dir   ,(expand-file-name "etc/" doom-sandbox-dir)
+                doom-autoloads-file ,doom-autoloads-file)
           (defun doom--write-to-etc-dir-a (orig-fn &rest args)
             (let ((user-emacs-directory doom-etc-dir))
               (apply orig-fn args)))
@@ -73,8 +74,8 @@
                 after-init-time nil
                 init-file-debug doom-debug-p
                 noninteractive nil
-                process-environment (get 'process-environment 'initial-value)
-                exec-path (get 'exec-path 'initial-value)
+                process-environment ',(get 'process-environment 'initial-value)
+                exec-path ',(get 'exec-path 'initial-value)
                 load-path ',load-path
                 user-init-file load-file-name)
           ;; package.el
