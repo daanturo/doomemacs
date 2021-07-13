@@ -124,10 +124,6 @@ directly, but something deeper in the =:ui popup=
 ** TODO Profile vertico =SPC /= vs ivy =SPC /=
 Check if there are other places where optimisations can be made. Perhaps the
 ~command-input-async~ variables can tolerate lower values.
-** TODO Magit Bug
-Some Magit commands break when using ~consult-completing-read-multiple~, see
-[[https://github.com/magit/magit/issues/4437][here]]. If this isn't fixed before the merge, we should add a local workaround or
-disable ~consult-completing-read-multiple~ until it's fixed.
 ** TODO Better Marginalia annotations for Projectile commands (maybe upstream)
 ** TODO after the next bump, replace ~+vertico/backward-updir~ with ~vertico-directory~ version
 ** TODO bump =bibtex-actions=
