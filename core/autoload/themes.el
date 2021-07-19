@@ -42,14 +42,14 @@ all themes. It will apply to all themes once they are loaded."
     (add-hook 'doom-customize-theme-hook fn 100)))
 
 ;;;###autoload
-(defmacro custom-set-faces! (&rest specs)
+(defun custom-set-faces! (&rest specs)
   "Apply a list of face SPECS as user customizations.
 
-This is a convenience macro alternative to `custom-set-face' which allows for a
+This is a convenience function alternative to `custom-set-face' which allows for a
 simplified face format, and takes care of load order issues, so you can use
 doom-themes' API without worry."
   (declare (indent defun))
-  `(custom-theme-set-faces! 'user ,@specs))
+  (apply #'custom-theme-set-faces! 'user specs))
 
 ;;;###autoload
 (defun doom/reload-theme ()
