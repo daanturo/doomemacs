@@ -18,29 +18,28 @@
         (`((,(car spec) ,(cdr spec))))))
 
 ;;;###autoload
-(defmacro custom-theme-set-faces! (theme &rest specs)
+(defun custom-theme-set-faces! (theme &rest specs)
   "Apply a list of face SPECS as user customizations for THEME.
 
 THEME can be a single symbol or list thereof. If nil, apply these settings to
 all themes. It will apply to all themes once they are loaded."
   (declare (indent defun))
   (let ((fn (gensym "doom--customize-themes-h-")))
-    `(progn
-       (defun ,fn ()
-         (let (custom--inhibit-theme-enable)
-           (dolist (theme (doom-enlist (or ,theme 'user)))
-             (when (or (eq theme 'user)
-                       (custom-theme-enabled-p theme))
-               (apply #'custom-theme-set-faces theme
-                      (mapcan #'doom--custom-theme-set-face
-                              (list ,@specs)))))))
-       ;; Apply the changes immediately if the user is using the default theme
-       ;; or the theme has already loaded. This allows you to evaluate these
-       ;; macros on the fly and customize your faces iteratively.
-       (when (or (get 'doom-theme 'previous-themes)
-                 (null doom-theme))
-         (funcall #',fn))
-       (add-hook 'doom-customize-theme-hook #',fn 100))))
+    (defalias fn
+      (lambda ()
+        (let (custom--inhibit-theme-enable)
+          (dolist (theme (doom-enlist (or theme 'user)))
+            (when (or (eq theme 'user)
+                      (custom-theme-enabled-p theme))
+              (apply #'custom-theme-set-faces theme
+                     (mapcan #'doom--custom-theme-set-face specs)))))))
+    ;; Apply the changes immediately if the user is using the default theme
+    ;; or the theme has already loaded. This allows you to evaluate these
+    ;; functions on the fly and customize your faces iteratively.
+    (when (or (get 'doom-theme 'previous-themes)
+              (null doom-theme))
+      (funcall fn))
+    (add-hook 'doom-customize-theme-hook fn 100)))
 
 ;;;###autoload
 (defmacro custom-set-faces! (&rest specs)
