@@ -41,7 +41,7 @@ Quote from ~embark~'s README:
 This package provides a sort of right-click contextual menu for Emacs
 #+end_quote
 
-In other applications, =<menu>= almost always trigger the list of contextual
+In other applications, =<menu>= almost always triggers the list of contextual
 actions at point, which remarkably fits ~embark~'s popup commands.
 *** We also might want to add keybindings for =embark-dwim=
 ** TODO =SPC s s= and =SPC s S= ~:sw~ ?
