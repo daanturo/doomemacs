@@ -171,3 +171,11 @@ kill all magit buffers for this repo."
     (if (or arg (not (featurep 'forge)))
         #'github-review-start
       #'github-review-forge-pr-at-point)))
+
+;;;###autoload
+(defun +magit/switch-project-and-status ()
+  "Select a project and run  `magit-status' there."
+  (interactive)
+  (let ((old-window (selected-window)))
+    ;; TODO: please occupy current window if the current one is `magit', too
+    (magit-status (project-prompt-project-dir))))

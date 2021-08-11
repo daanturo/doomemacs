@@ -467,6 +467,7 @@
         :desc "Magit buffer log"          "L"   #'magit-log-buffer-file
         :desc "Git stage file"            "S"   #'magit-stage-file
         :desc "Git unstage file"          "U"   #'magit-unstage-file
+        :desc "Magit status of a project" "TAB"   #'+magit/switch-project-and-status
         (:prefix ("f" . "find")
          :desc "Find file"                 "f"   #'magit-find-file
          :desc "Find gitconfig file"       "g"   #'magit-find-git-config-file
