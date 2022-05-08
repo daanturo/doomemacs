@@ -13,3 +13,9 @@
                 (interactive)
                 (evil-textobj-tree-sitter-goto-textobj group previous end query)))
     sym))
+
+;;;###autoload
+(defun +tree-sitter-get-textobj (group &optional query)
+  "A wrapper around `evil-textobj-tree-sitter-get-textobj' to
+prevent eager expansion."
+  (eval `(evil-textobj-tree-sitter-get-textobj ,group ,query)))
