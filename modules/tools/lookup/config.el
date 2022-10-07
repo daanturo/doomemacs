@@ -38,6 +38,13 @@
 
 Used by `+lookup/online'.")
 
+(defvar +lookup-default-provider nil
+  "The default provider used by `+lookup/online'.
+
+The first to be appeared by the said command unless the previous
+provider has been set. Its value must be a key in
+`+lookup-provider-url-alist'.")
+
 (defvar +lookup-open-url-fn #'browse-url
   "Function to use to open search urls.")
 

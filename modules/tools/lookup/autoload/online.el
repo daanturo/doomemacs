@@ -10,7 +10,8 @@
                    (completing-read
                     "Search on: "
                     (mapcar #'car +lookup-provider-url-alist)
-                    nil t))
+                    nil t
+                    nil nil +lookup-default-provider))
           (setf (alist-get key +lookup--last-provider) provider)
           provider))))
 
